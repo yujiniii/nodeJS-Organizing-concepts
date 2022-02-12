@@ -1,0 +1,45 @@
+
+{"response":
+    {"body":
+        {
+            "totalCount":23,
+            "items":[
+                {
+                    "pm25Grade1h":"2",
+                    "pm10Value24":"66",
+                    "so2Value":"0.003",
+                    "pm10Grade1h":"2",
+                    "o3Grade":"1",
+                    "pm10Value":"53",
+                    "pm25Flag":null,
+                    "khaiGrade":"3",
+                    "pm25Value":"35",
+                    "no2Flag":null,
+                    "mangName":"도시대기",
+                    "no2Value":"0.048",
+                    "so2Grade":"1",
+                    "coFlag":null,
+                    "khaiValue":"154",
+                    "coValue":"0.6",
+                    "pm10Flag":null,
+                    "no2Grade":"2",
+                    "pm25Value24":"50",
+                    "o3Flag":null,
+                    "pm25Grade":"3",
+                    "so2Flag":null,
+                    "coGrade":"1",
+                    "dataTime":"2022-02-12 19:00",
+                    "pm10Grade":"2",
+                    "o3Value":"0.015"
+                }
+                    ],
+            "pageNo":1,
+            "numOfRows":1
+        },
+    "header":
+        {
+            "resultMsg":"NORMAL_CODE",
+            "resultCode":"00"
+        }
+    }
+}
