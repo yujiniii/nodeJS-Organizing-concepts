@@ -11,3 +11,4 @@ client.get('myKey',(err, value) => {
 
 
 /* ClientClosedError: The client is closed */
+/* windows의 redis의 설치 문제로,, 당분간 보류 */
