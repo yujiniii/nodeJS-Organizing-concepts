@@ -12,8 +12,8 @@
 
 
 ## 공부할 때 사용한 책
-- [길벗] Node.js 교과서 개정 2판
-- [백견불여일타] Node.js로 서버만들기
+- [길벗] Node.js 교과서 개정 2판 ( /nodejs_textbook )
+- [백견불여일타] Node.js로 서버만들기 ( /roadbook )
 
 <img src="https://image.yes24.com/goods/62597864/XL" width="200">  <img src="https://image.yes24.com/goods/104209092/XL" width="200"> 
 
