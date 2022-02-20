@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "express-generator": "^4.16.1",
+    "express-session": "^1.17.2",
+    "morgan": "^1.10.0",
+    "ws": "^8.5.0"
+  }
+}
