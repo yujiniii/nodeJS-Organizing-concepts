@@ -23,10 +23,10 @@ app.get("/",(req,res)=>{
 });
 
 io.on("connection",(socket)=>{
-    let name = '';
+    let name = "";
     socket.on("has connected", (username)=>{  //event : has connected
         name = username;
-        username.push(username);
+        users.push(username);
         io.emit("has connected",{username:username, usersList:users})
     });
     socket.on("has disconnected",()=>{   //event : has disconnected

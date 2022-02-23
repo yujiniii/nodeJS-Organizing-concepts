@@ -65,14 +65,14 @@
               $("#users").append("<li><b>"+list[i]+"</b></li>");
           }
       }
-      $("login-form").submit(function (event) {
+      $("#login-form").submit(function (event) {
           event.preventDefault(); //이벤트 취소
           if($("#user-name").val() == "" || $("#user-name").val() == " "){
               alert("Invaild user name");
           } else{
               $username = $("#user-name").val() // get username
-              $("#login-form").hide();
-              $("chat-area").show();
+              $("#login-area").hide();
+              $("#chat-area").show();
 
               $("#messages").html(""); // 오래된 메세지 삭제
               socket.emit("has connected", $username);
