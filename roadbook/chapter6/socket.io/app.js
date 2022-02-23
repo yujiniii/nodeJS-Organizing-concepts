@@ -9,6 +9,7 @@ const websocket = require('./socket.js');
 
 // 포트 설정
 app.set('port',process.env.PORT || 8080);
+app.use(express.static(__dirname + '/public/'));
 
 // 공통 미들웨어
 app.use(morgan('dev'));
