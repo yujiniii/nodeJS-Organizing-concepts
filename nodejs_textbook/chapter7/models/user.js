@@ -30,7 +30,7 @@ module.exports = class User extends Sequelize.Model{
             timestamps:false,
             underscored:false,
             modelName:'User',
-            tableName:'users',
+            tableName:'users',  //mySQL 테이블 명 들어가는 곳
             paranoid:false,
             charset:'utf8',
             collate:'utf8_general_ci',
