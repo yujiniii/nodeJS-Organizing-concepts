@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('includes/head') %>
+    <link rel="stylesheet" href="styles/restaurants.css" />
+  </head>
+  <body>
+    <%- include('includes/header') %> 
+    <%- include('includes/aside') %> 
+    <main>
+      <h1>Recommended restaurants</h1>
+      <% if (numberOfRestaurants === 0) { %>
+        <p>등록된 레스토랑이 없습니다. </p>
+      <% } else {%>
+        <p>Find your next favorite restaurants with help of our other users!</p>
+        <p>We Found <%= numberOfRestaurants %> restaurant.</p>
+        <form action="/restaurants" method="GET">
+          <input type="hidden" value="<%= nextOrder %>" name="order"> <!--form 에 굳이 보낼게 ㅇ벗음-->
+          <button class="btn">Change order</button>
+        </form>
+        <ul id="restaurants-list">
+        <% for(const rest of restaurants) { %>
+
+          <%- include('includes/restaurant/restaurant-item',{rest:rest}) %>
+          
+        <% } %>
+        </ul>
+      <% }%>
+     
+    </main>
+  </body>
+</html>

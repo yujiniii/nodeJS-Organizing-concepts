@@ -1,0 +1,42 @@
+[
+    {
+        "id": "r1",
+        "name": "맛있는 한식",
+        "address": "서울, 종로구",
+        "cuisine": "한식",
+        "website": "http://www.yujiniii.com",
+        "description": "맛있어요"
+    },
+    {
+        "id": "r2",
+        "name": "이탈리아노니노",
+        "address": "서울 ,강남구",
+        "cuisine": "양식",
+        "website": "http://www.test2.com",
+        "description": "크림파스타 먹고싶다"
+    },
+    {
+        "id": "r3",
+        "name": "태국태닝",
+        "address": "수원, 행궁동",
+        "cuisine": "태국음식",
+        "website": "http://www.test3.com",
+        "description": "ㅍㅍㅍ커리"
+    },
+    {
+        "name": "짱짱중식",
+        "address": "인천,차이나타운",
+        "cuisine": "중식",
+        "website": "http://www.4444.com",
+        "description": "중국요리의 진수",
+        "id": "aeb336c8-6696-4ae2-8f53-404ae7d4144e"
+    },
+    {
+        "name": "다옴",
+        "address": "언주역",
+        "cuisine": "분식",
+        "website": "http://www.yujiniii.com",
+        "description": "별로임",
+        "id": "f8bdc56c-4a18-4155-8707-b8ee3960c69d"
+    }
+]
