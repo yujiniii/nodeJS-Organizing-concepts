@@ -19,7 +19,7 @@
 
 
 ## 도움받은 강의
-- [UDEMY] 100일 코딩 챌린지 - 2022 Web Development 부트캠프 
+- [UDEMY] 100일 코딩 챌린지 - 2022 Web Development 부트캠프 ( /udemy/100-days-of-web-development )
 
 ## 기타 개념 정리
 https://velog.io/@yujiniii
