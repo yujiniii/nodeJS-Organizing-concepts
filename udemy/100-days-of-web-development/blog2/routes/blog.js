@@ -14,6 +14,19 @@ router.get('/posts', async function(req,res){
     const posts = db.getDb().collection('post').find().toArray()
     res.render('posts-list');
 });
+router.post('/update-posts', async function(req,res){
+    const authorId = new ObjectId(req.body.author);
+    const newPost = {
+        title : req.body.title,
+        summary:req.body.summary,
+        body : req.body.content,
+        date:new Date(),
+    };
+    const result =  await db.getDb().collection('posts').updateOne({_id:authorId}, newPost);
+    console.log(result);
+    res.redirect('/posts');
+});
+
 
 
 
@@ -24,7 +37,7 @@ router.get('/new-post', async function(req,res){
     res.render('create-post', {authors:authors});
 });
 
-router.post('/posts', async function(req,res){
+router.post('/create-posts', async function(req,res){
     const authorId = new ObjectId(req.body.author);
     const author =  await db.getDb().collection('authors').findOne({_id:authorId});
     const newPost = {
