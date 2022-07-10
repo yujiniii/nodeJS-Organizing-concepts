@@ -10,7 +10,9 @@
   <%- include('includes/header') %>
   <main id="all-posts">
     <h1>All Posts</h1>
-   
+      <% for (post of posts) {%>
+    <%- include('includes/post-item', {post:post}) %>
+    <% } %>
   </main> 
 </body>
 
