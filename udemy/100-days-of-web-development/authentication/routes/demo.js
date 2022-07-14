@@ -9,7 +9,18 @@ router.get('/', function (req, res) {
 });
 
 router.get('/signup', function (req, res) {
-  res.render('signup');
+  let sessionInputData = req.session.inputData;
+  if(!sessionInputData){
+    sessionInputData = {
+      hasError:false,
+      message:'올바른 형식으로 입력하세요',
+      email:'',
+      confirmEmail:'',
+      password:''
+    }
+  }
+  req.session.inputData = null; // 안하면 계속 남아서 로그인 이후에도 회원가입 화면에서 보임 이렇게 바로 없애는걸 플래싱이라고 함
+  res.render('signup',{inputData:sessionInputData});
 });
 
 router.get('/login', function (req, res) {
@@ -32,7 +43,19 @@ router.post('/signup', async function (req, res) {
     !enteredEmail.includes('@')
   ){
     console.log("올바른 형식으로 입력하세요")
-    return res.redirect('/signup')
+    req.session.inputData = await {
+      hasError:true,
+      message:'올바른 형식으로 입력하세요',
+      email:enteredEmail,
+      confirmEmail:enteredConfirmEmail,
+      password:enteredPassword
+      };
+    console.log(req.session.inputData)
+    req.session.save(function(){
+      return res.redirect('/signup')
+    });
+    return ;    // 이거 안하면 응답 2개 보낸걸로 떠서 에러남
+    
   }
 
   const existingUser = await db.getDb().collection('users').findOne({
@@ -76,14 +99,28 @@ router.post('/login', async function (req, res) {
   }
   
   console.log("HI ",enteredEmail);
-  res.redirect('/admin');
+  req.session.user = { id:existingUser._id ,email:existingUser.email};
+  req.session.isAuthenticated = true;
+  req.session.save(function(){ // session 에 저장이 끝나면 그때 렌더링
+    res.redirect('/admin');
+  })
 
 });
 
 router.get('/admin', function (req, res) {
+  if(!req.session.user || !req.session.isAuthenticated){
+    return res.status(401).render('401');
+  }
   res.render('admin');
+
 });
 
-router.post('/logout', function (req, res) {});
+router.post('/logout', function (req, res) {
+  // 전체 세션을 지우는 것은 지양하기
+  req.session.user = null
+  req.session.isAuthenticated = false;
+  res.redirect('/');
+}
+  );
 
 module.exports = router;
