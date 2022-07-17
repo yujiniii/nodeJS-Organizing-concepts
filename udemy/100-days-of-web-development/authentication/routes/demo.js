@@ -24,7 +24,18 @@ router.get('/signup', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
-  res.render('login');
+  let sessionInputData = req.session.inputData;
+  if(!sessionInputData){
+    sessionInputData = {
+      hasError:false,
+      message:'올바른 형식으로 입력하세요',
+      email:'',
+      password:''
+    }
+  }
+  req.session.inputData = null; 
+  res.render('login',{inputData:sessionInputData});
+
 });
 
 router.post('/signup', async function (req, res) {
@@ -55,17 +66,26 @@ router.post('/signup', async function (req, res) {
       return res.redirect('/signup')
     });
     return ;    // 이거 안하면 응답 2개 보낸걸로 떠서 에러남
-    
   }
 
   const existingUser = await db.getDb().collection('users').findOne({
     email : enteredEmail
   });
+  if(existingUser){
+  req.session.inputData = await {
+    hasError:true,
+    message:'다른 이메일을 사용하세요',
+    email:enteredEmail,
+    confirmEmail:enteredConfirmEmail,
+    password:enteredPassword
+    }
+    console.log(req.session.inputData)
+    req.session.save(function(){
+      return res.redirect('/signup')
+    });
+    return ;
+}
 
-  if (existingUser) {
-    console.log("사용자가 존재합니다")
-    return res.redirect('/signup')
-  }
   const user = {
     email : enteredEmail,
     password : hashedPassword
@@ -87,33 +107,66 @@ router.post('/login', async function (req, res) {
   });
   
   if(!existingUser){
-    console.log(enteredEmail,'사용자가 존재하지 않습니다.')
-    return res.redirect('/login');
+    req.session.inputData = await {
+      hasError:true,
+      message:'사용자가 존재하지 않습니다.',
+      email:enteredEmail,
+      password:enteredPassword
+      }
+      console.log(req.session.inputData)
+      req.session.save(function(){
+        return res.redirect('/login')
+      });
+      return ;
   }
 
   const passwordsAreEqual = await bcrypt.compare(enteredPassword, existingUser.password); // bcrypt.compare(비교할 문자열, 해싱된 값) 
 
   if(!passwordsAreEqual){
-    console.log(enteredEmail,'의 비밀번호가 일치하지 않습니다.')
-    return res.redirect('/login');
+    req.session.inputData = await {
+      hasError:true,
+      message:'비밀번호가 일치하지 않습니다.',
+      email:enteredEmail,
+      password:enteredPassword
+    }
+    console.log(req.session.inputData)
+    req.session.save(function(){
+      return res.redirect('/login')
+    });
+    return ;
   }
   
   console.log("HI ",enteredEmail);
   req.session.user = { id:existingUser._id ,email:existingUser.email};
   req.session.isAuthenticated = true;
   req.session.save(function(){ // session 에 저장이 끝나면 그때 렌더링
-    res.redirect('/admin');
+    res.redirect('/profile');
   })
 
 });
 
-router.get('/admin', function (req, res) {
-  if(!req.session.user || !req.session.isAuthenticated){
+router.get('/admin', async function (req, res) {
+  if(!res.locals.isAuth){ // !req.session.user || !req.session.isAuthenticated
     return res.status(401).render('401');
   }
-  res.render('admin');
+  //const user = await db.getDb().collection('users').findOne({_id:req.session.user.id});
+  if(!res.locals.isAdmin){ //!user || !user.isAdmin
+    return res.status(403).render('403');
+  }
+  else {
+    res.render('admin');
+  }
+});
+
+
+router.get('/profile', function (req, res) {
+  if(!res.locals.isAuth){ // !req.session.user || !req.session.isAuthenticated
+    return res.status(401).render('401');
+  }
+  res.render('profile');
 
 });
+
 
 router.post('/logout', function (req, res) {
   // 전체 세션을 지우는 것은 지양하기
