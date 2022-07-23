@@ -4,7 +4,6 @@ const express = require('express');
 const session = require('express-session');
 const mongodbStore = require('connect-mongodb-session');
 const csrf = require('csurf');
-const addCSRFTokenMiddleware = require('../mvc/middlewares/csrf-token-middleware')
 
 const db = require('./data/database');
 const blogRoutes = require('./routes/blog');
@@ -35,7 +34,6 @@ app.use(session({
   }
 }));
 app.use(csrf());
-app.use(addCSRFTokenMiddleware);
 
 app.use(async function(req, res, next) {
   const user = req.session.user;
