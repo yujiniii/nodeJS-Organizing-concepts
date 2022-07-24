@@ -4,7 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const mongodbStore = require('connect-mongodb-session');
 const csrf = require('csurf');
-
+const authRoutes = require('./routes/auth');
 const db = require('./data/database');
 const blogRoutes = require('./routes/blog');
 
@@ -48,6 +48,7 @@ app.use(async function(req, res, next) {
   next();
 });
 
+app.use(authRoutes);
 app.use(blogRoutes);
 
 app.use(function(error, req, res, next) {
